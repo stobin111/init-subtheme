@@ -76,147 +76,85 @@
  *
  * @ingroup themeable
  */
-
 ?>
-<div id="page-wrapper">
-	<!-- Page Header -->
-  <header id='masthead'>
-    <nav class='navbar navbar-fixed-top'>
-      <div class='navbar-inner'>
-        <div class='container'>
-          <?php print render($page['header']); ?>
-          <h1 class="header__sitename"><a href="/" title="Home" rel="home"><span><?php print render($variables['site_name']); ?></span></a></h1>
-        </div>
-      </div>
-    </nav>
-  </header>
-  <div id="page">
-    <?php if (!$asu_local_navicon): ?>
-      <section class="section hidden-collapse hidden-desktop" id="menu">
-        <div class="container">
-          <nav class='navbar navbar-fixed-top fixer'>
-            <div class='navbar-inner fixer'>
-              <div class='nav-collapse'>
-                <?php print render($page['menu']); ?>
-              </div>
-            </div>
-          </nav>
-        </div>
-      </section>
-    <?php endif; ?>
+<div id="page-wrapper"><div id="page">
 
-    <?php if ($site_name): ?>
-      <section class="section" id="site-name-desktop">
-        <div class="container">
-          <h1 class='site-title'>
-            <?php print $site_name; ?>
-          </h1>
-        </div>
-      </section>
-      <!-- <section class="section" id="site-name-desktop">
-        <div class="container">
-          <h1 class='site-title'>
-            <span class='first-word'><?php print $site_name_first; ?> </span>
-            <?php print $site_name_last; ?>
-          </h1>
-        </div>
-      </section> -->
-    <?php endif; ?>  
-    
+  <!-- Page Header -->
+  <header id="header">
+  	<div class="container">
+  		<div class="row">
+  			<div class="column col-md-12">
+					<?php print render($page['header']); ?>
 
-    <?php if ($asu_picture): ?>
-      <?php if ($is_front) : ?>
-        <section class="section" id="picture">
-          <div class="container">
-            <?php print $asu_picture; ?>
-          </div>
-        </section>
-      <?php endif; ?>
-    <?php endif; ?>
+					<?php if ($site_name): ?>
+							<h1 class="header__sitename"<?php if ($hide_site_name) { print ' class="element-invisible"'; } ?>>
+									<a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
+							</h1>
+					<?php endif; ?>
+				</div>
+			</div>
+		</div>
+  </header><!-- /.header -->
 
-    <!-- <section class="section" id="menu">
-      <div class="container">
-        <nav class='navbar navbar-fixed-top'>
-          <div class='navbar-inner'>
-            <?php if ($site_name): ?>
-              <div class='navbar-sitename-collapse'>
-                <h1 class='site-title'>
-                  <span class='first-word'><?php print $site_name_first; ?></span>
-                  <?php print $site_name_last; ?>
-                </h1>
-              </div>
-            <?php endif; ?>
 
-            <?php if ($asu_local_navicon): ?>
-              <?php print $asu_local_navicon; ?>
-            <?php endif; ?>
-
-            <div class='<?php $asu_local_navicon ? print 'nav-collapse' : print 'visible-desktop'; ?>'>
-              <?php print render($page['menu']); ?>
-            </div>
-          </div>
-        </nav>
-      </div>
-    </section> -->
-
-    <?php if ($messages): ?>
-    <div id="messages">
-      <div class="container">
-        <div class="section clearfix">
-          <?php print $messages; ?>
-        </div>
-      </div>
-    </div>
-    <!-- /.section, /#messages -->
-    <?php endif; ?>
-
-    <?php if ($tabs): ?>
-    <!-- <section class="section" id="tabs">
-      <div class="container">
-        <?php print render($tabs); ?>
-      </div>
-    </section> -->
-    <?php endif; ?>
-
-    <?php if ($action_links): ?>
-    <section class="section" id="action-links">
-      <div class="container">
-        <?php print render($action_links); ?>
-      </div>
-    </section>
-    <?php endif; ?>
+	<!-- Nav Bar -->
+	<div id="ASUNavMenu" class="navmenu">
+		<div class="container">
+      <!--Commented to work with mega menu-->
+                     <nav class="navbar-collapse collapse">
+					<?php print render($page['menu']); ?>
+			</nav><!-- /#navbar -->
+		</div><!-- /.container -->
+	</div><!-- /.navmenu -->
 
     <!-- Page Main -->
-    <div id="main-wrapper" class="clearfix">
-      <div id="main" class="clearfix">
-        <div id="content"
-          class="column <?php $no_panels ? print ' container"' : ''; ?>">
-          <a id="main-content"></a>
-          <?php print render($page['content']); ?>
-        </div>
-        <!-- /.section, /#content -->
+  <div id="main-wrapper" class="clearfix"><div id="main" class="clearfix">
+    <a id="main-content"></a>
 
+    <div id="top-content" class="column container">
+      <?php if (($no_panels || $always_show_page_title) && $title): ?>
+        <h1 id="page-title" class="title">
+          <?php print $title; ?>
+        </h1>
+      <?php endif; ?>
+
+      <?php if ($messages): ?>
+        <div id="messages">
+          <?php print $messages; ?>
+        </div>
+      <?php endif; ?>
+
+      <?php if ($tabs): ?>
+        <div id="tabs">
+          <?php print render($tabs); ?>
+        </div>
+      <?php endif; ?>
+
+      <?php if ($action_links): ?>
+        <div id="action-links">
+          <?php print render($action_links); ?>
+        </div>
+      <?php endif; ?>
+    </div> <!-- /#top-content -->
+
+		<div id="content" class="column <?php $no_panels ? print 'container' : ''; ?>">
+			<div id="page-content">
+				<?php print render($page['content']); ?>
+			</div><!-- /#page-content -->
+		</div><!-- /#content -->
+
+  </div></div> <!-- /#main, /#main-wrapper -->
+
+  <!-- Page Footer -->
+  <footer id="footer">
+    <div class="container-fluid">
+      <div class="row-fluid">
+      	<?php print render($page['footer']); ?>
       </div>
     </div>
-    <!-- /#main, /#main-wrapper -->
+  </footer><!-- /#footer -->
 
-    <!-- Page Footer -->
-    <footer class='section' id='footerlower' role='contentinfo'>
-      <div class='container'>
-        <div class='row-fluid'>
-          <?php print render($page['footer']); ?>
-        </div>
-      </div>
-    </footer>
-
-        <!-- Page Footer -->
-    <section class='section' id='closure'>
-      <div class='container'>
-        <div class='row-fluid'>
-          <?php print render($page['closure']); ?>
-        </div>
-      </div>
-    </section>
+  <?php print render($page['closure']); ?>
 
   </div>
 </div>
